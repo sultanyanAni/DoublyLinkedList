@@ -43,8 +43,8 @@ namespace AniDoublyLinkedList
             else
             {
 
-                currentNode.Next = new Node<T>(itemToAdd, null, Tail);
-                Tail = currentNode.Next;
+                Tail.Next = new Node<T>(itemToAdd, null, Tail);
+                Tail = Tail.Next;
             }
             Count++;
         }
@@ -115,10 +115,9 @@ namespace AniDoublyLinkedList
                 {
                     Node<T> nodeToAdd = new Node<T>(itemToAdd);
                     nodeToAdd.Next = CurrentNode.Next;
+                    CurrentNode.Next.Previous = nodeToAdd;
                     CurrentNode.Next = nodeToAdd;
                     nodeToAdd.Previous = CurrentNode;
-                   
-
                 }
             }
             Count++;
@@ -139,6 +138,7 @@ namespace AniDoublyLinkedList
             else
             {
                 Head = Head.Next;
+                Head.Next.Previous = null;
                 Count--;
                 return true;
             }
@@ -158,10 +158,49 @@ namespace AniDoublyLinkedList
                 return true;
             }
         }
-
-        public int CompareTo(T other)
+    
+        public bool RemoveAt(int indexToRemoveAt)
         {
-            throw new NotImplementedException();
+            if(IsEmpty())
+            {
+                return false;
+            }
+            else if(indexToRemoveAt == 0)
+            {
+                RemoveFromFront();
+                Count--;
+                return true;
+            }
+            else
+            {
+                Node<T> currentNode = Head;
+                int count = 0;
+                while(count < indexToRemoveAt)
+                {
+                    currentNode = currentNode.Next;
+                    count++;
+                }
+                if(currentNode == null)
+                {
+                    return false;
+                }
+                else if(currentNode.Next == null)
+                {
+                    RemoveFromEnd();
+                    Count--;
+                    return true;
+                }
+                else
+                {
+                    currentNode.Previous.Next = currentNode.Next;
+                    currentNode.Next.Previous = currentNode.Previous;
+                    Count--;
+                    return true;
+                }
+
+            }
         }
+
+       
     }
 }

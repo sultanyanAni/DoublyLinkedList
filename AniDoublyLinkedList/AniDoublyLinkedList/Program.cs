@@ -16,7 +16,10 @@ namespace AniDoublyLinkedList
             {
                 list.AddToEnd(i);
             }
-            list.Display();
+            foreach (Node<int> node in list)
+            {
+                Console.WriteLine(node.Value);
+            }
             Console.WriteLine("Which index do you want to add at?");
             int response = int.Parse(Console.ReadLine());
             Console.WriteLine("Would you like to add the number before or after the index?");
@@ -29,12 +32,24 @@ namespace AniDoublyLinkedList
             {
                 list.AddAfter(222, response);
             }
-           list.RemoveFromEnd();
+            foreach (Node<int> node in list)
+            {
+                Console.WriteLine(node.Value);
+            }
+            Console.ReadKey();
+          list.RemoveFromEnd();
             foreach(Node<int> node in list)
             {
-
+                Console.WriteLine(node.Value);
             }
 
+            Console.WriteLine("Which index do you want to remove from?");
+            response = int.Parse(Console.ReadLine());
+            list.RemoveAt(response);
+            foreach (Node<int> node in list)
+            {
+                Console.WriteLine(node.Value);
+            }
             Console.ReadKey();
         }
     }
