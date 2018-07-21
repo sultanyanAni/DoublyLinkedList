@@ -10,47 +10,94 @@ namespace AniDoublyLinkedList
     {
         static void Main(string[] args)
         {
-            DoublyLinkedList<int> list = new DoublyLinkedList<int>();
+            DoublyLinkedList<string> list = new DoublyLinkedList<string>();
+            bool Exit = false;
+            while (Exit == false)
+            {
+                Console.WriteLine("1. Add to list");
+                Console.WriteLine("2. Remove from list");
+                Console.WriteLine("3. Display the list");
+                Console.WriteLine("4. Exit");
+                int index = 0;
+                string response = Console.ReadLine();
+                string choose = "";
+               
+                switch (response)
+                {
+                    case "1":
+                        Console.WriteLine("Enter the item you would like to add:");
+                        string item = Console.ReadLine();
+                        Console.WriteLine("Where would you like to add your item?");
+                        Console.WriteLine("1. Front of the list");
+                        Console.WriteLine("2. End of the list");
+                        Console.WriteLine("3. Before a specific index");
+                        Console.WriteLine("4. After a specific index");
+                        choose = Console.ReadLine();
+                        switch (choose)
+                        {
+                            case "1":
+                                list.AddToFront(item);
+                                break;
+                            case "2":
+                                list.AddToEnd(item);
+                                break;
+                            case "3":
+                                Console.WriteLine("Which index would you like to add before?");
+                                index = int.Parse(Console.ReadLine()) - 1;
+                                list.AddBefore(item, index);
+                                break;
+                            case "4":
+                                Console.WriteLine("Which index would you like to add after?");
+                                index = int.Parse(Console.ReadLine()) - 1;
+                                list.AddAfter(item, index);
+                                break;
+                            default:
+                                Console.WriteLine("Not a valid response");
+                                break;
+                        }
+                        break;
+                    case "2":
+                        Console.WriteLine("Where do you want to remove an item from?");
+                        Console.WriteLine("1. Front of the list");
+                        Console.WriteLine("2. End of the list");
+                        Console.WriteLine("3. At a specific index");
+                        choose = Console.ReadLine();
+                        switch (choose)
+                        {
+                            case "1":
+                                list.RemoveFromFront();
+                                break;
+                            case "2":
+                                list.RemoveFromEnd();
+                                break;
+                            case "3":
+                                Console.WriteLine("Which index do you want to remove an item from?");
+                                index = int.Parse(Console.ReadLine()) - 1;
+                                list.RemoveAt(index);
+                                break;
+                            default:
+                                Console.WriteLine("Not a valid response");
+                                break;
+                        }
+                        break;
+                    case "3":
+                        int location = 1;
+                        foreach (Node<string> node in list)
+                        {
+                            Console.WriteLine($"{location}) {node.Value}");
+                            location++;
+                        }
+                        break;
+                    case "4":
+                        Exit = true;
+                        break;
 
-            for (int i = 0; i < 4; i++)
-            {
-                list.AddToEnd(i);
-            }
-            foreach (Node<int> node in list)
-            {
-                Console.WriteLine(node.Value);
-            }
-            Console.WriteLine("Which index do you want to add at?");
-            int response = int.Parse(Console.ReadLine());
-            Console.WriteLine("Would you like to add the number before or after the index?");
-            string answer = Console.ReadLine().ToLower();
-            if(answer == "before")
-            {
-                list.AddBefore(222, response);
-            }
-            else
-            {
-                list.AddAfter(222, response);
-            }
-            foreach (Node<int> node in list)
-            {
-                Console.WriteLine(node.Value);
-            }
-            Console.ReadKey();
-          list.RemoveFromEnd();
-            foreach(Node<int> node in list)
-            {
-                Console.WriteLine(node.Value);
-            }
 
-            Console.WriteLine("Which index do you want to remove from?");
-            response = int.Parse(Console.ReadLine());
-            list.RemoveAt(response);
-            foreach (Node<int> node in list)
-            {
-                Console.WriteLine(node.Value);
+                    default:
+                        Console.WriteLine("Please enter a valid response");
+                        break;
+                }
             }
-            Console.ReadKey();
         }
     }
 }

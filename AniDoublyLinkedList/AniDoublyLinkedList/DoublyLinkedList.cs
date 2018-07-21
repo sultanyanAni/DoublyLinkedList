@@ -28,7 +28,7 @@ namespace AniDoublyLinkedList
             }
         }
 
-        bool IsEmpty()
+        public bool IsEmpty()
         {
             return Head == null;
         }
@@ -60,6 +60,7 @@ namespace AniDoublyLinkedList
             else
             {
                 nodeToInsert.Next = Head;
+                Head.Previous = nodeToInsert;
                 Head = nodeToInsert;
 
 
@@ -68,7 +69,11 @@ namespace AniDoublyLinkedList
         }
         public void AddBefore(T itemToAdd, int indexToAddBefore)
         {
-            if (IsEmpty())
+            if(indexToAddBefore < 0 || indexToAddBefore > Count)
+            {
+                throw new Exception("HOW DARE YOU enter a number that is either less than zero OR greater than the count. you fool. you absolute fool");
+            }
+            else if (IsEmpty() || indexToAddBefore == 0)
             {
                 AddToFront(itemToAdd);
             }
@@ -94,7 +99,11 @@ namespace AniDoublyLinkedList
         }
         public void AddAfter(T itemToAdd, int indexToAddAfter)
         {
-            if (IsEmpty())
+            if (indexToAddAfter < 0 || indexToAddAfter > Count)
+            {
+                throw new Exception("HOW DARE YOU enter a number that is either less than zero OR greater than the count. you fool. you absolute fool");
+            }
+            else if (IsEmpty())
             {
                 AddToFront(itemToAdd);
             }
@@ -161,7 +170,11 @@ namespace AniDoublyLinkedList
     
         public bool RemoveAt(int indexToRemoveAt)
         {
-            if(IsEmpty())
+            if (indexToRemoveAt < 0 || indexToRemoveAt > Count)
+            {
+                throw new Exception("HOW DARE YOU enter a number that is either less than zero OR greater than the count. you fool. you absolute fool");
+            }
+            else if (IsEmpty())
             {
                 return false;
             }
